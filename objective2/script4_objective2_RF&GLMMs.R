@@ -9,6 +9,7 @@ library(dplyr)
 library(vegan)
 library(viridis)
 library(ggplot2)
+library(patchwork)
 library(MetBrewer)
 library(glmmTMB) 
 library(randomForest)
@@ -23,6 +24,7 @@ library(emmeans)
 library(classyfireR)
 
 ### Get data ### 
+setwd("/Users/marianagelambi/Desktop/bat-metabolomics/objective2")
 data_final <- read.csv("data_final_metaMS_dec2_normalizedinsresponse.csv")
 data_final$concentration <- as.factor(data_final$concentration)
 data_final <- data_final %>%
@@ -60,8 +62,6 @@ boruta_table <- getImpRfZ(x1, c1)
 boruta_table
 boruta_sigfeatures <- getSelectedAttributes(boruta)
 boruta_sigfeatures
-write.csv(importance_allcompounds, file = "RF_importance_0.1%.csv")
-write.csv(boruta_sigfeatures, file = "boruta_sigfeatures_0.1%.csv")
 
 ### 2%
 x1 <- concentration_2_no0[ , 2:151] #x1 should only have the compound data, no other factors
@@ -77,8 +77,6 @@ boruta_table <- getImpRfZ(x1, c1)
 boruta_table
 boruta_sigfeatures <- getSelectedAttributes(boruta)
 boruta_sigfeatures
-write.csv(importance_allcompounds, file = "RF_importance_2%.csv")
-write.csv(boruta_sigfeatures, file = "boruta_sigfeatures_2%.csv")
 
 ### 3%
 x1 <- concentration_3_no0[ , 2:200] #x1 should only have the compound data, no other factors
@@ -94,8 +92,6 @@ boruta_table <- getImpRfZ(x1, c1)
 boruta_table
 boruta_sigfeatures <- getSelectedAttributes(boruta)
 boruta_sigfeatures
-write.csv(importance_allcompounds, file = "RF_importance_3%.csv")
-write.csv(boruta_sigfeatures, file = "boruta_sigfeatures_3%.csv")
 
 #######################################
 ### GENERALIZED LINEAR MIXED MODELS ###
@@ -115,7 +111,7 @@ c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_0.1_no0$predictions_c226 <- predict(c226, concentration_0.1_no0, re.form=NA, type="response")
 
 concentration_226_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_0.1_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -125,7 +121,7 @@ concentration_226_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = 
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 4, y = 0.06, label = "***", size = 6, color = "black")
+  geom_text(x = 4, y = 0.06, label = "***", size = 8, color = "black")
 concentration_226_graph
 
 # 6
@@ -141,7 +137,7 @@ c6_emmeans <- as.data.frame(c6_emmeans)
 concentration_0.1_no0$predictions_c6 <- predict(c6, concentration_0.1_no0, re.form=NA, type="response")
 
 concentration_6_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c6, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_0.1_no0, aes(x = treatment, y = Unknown.6_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -151,15 +147,13 @@ concentration_6_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = pr
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 2, y = 0.3, label = "*", size = 6, color = "black")
+  geom_text(x = 3, y = 0.15, label = "*", size = 8, color = "black")
 
 concentration_6_graph
 
-allcompounds_01_RF <- ggarrange(concentration_6_graph,
-                                concentration_226_graph,
-                                ncol = 2,
-                                nrow = 1,
-                                align = "hv")
+allcompounds_01_RF <- concentration_6_graph + 
+  concentration_226_graph
+
 allcompounds_01_RF
 
 ggsave(file="allcompounds_01_RF.jpg", 
@@ -181,7 +175,7 @@ c353_emmeans <- as.data.frame(c353_emmeans)
 concentration_2_no0$predictions_c353 <- predict(c353, concentration_2_no0, re.form=NA, type="response")
 
 concentration_353_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c353, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -190,7 +184,7 @@ concentration_353_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pr
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 0.6, label = "***", size = 6, color = "black")
+  geom_text(x = 4, y = 0.40, label = "***", size = 8, color = "black")
 concentration_353_graph
 
 # 226
@@ -206,7 +200,7 @@ c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_2_no0$predictions_c226 <- predict(c226, concentration_2_no0, re.form=NA, type="response")
 
 concentration_226_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -215,7 +209,7 @@ concentration_226_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pr
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 0.6, label = "***", size = 6, color = "black")
+  geom_text(x = 4, y = 0.35, label = "***", size = 8, color = "black")
 concentration_226_graph
 
 # 150
@@ -231,7 +225,7 @@ c150_emmeans <- as.data.frame(c150_emmeans)
 concentration_2_no0$predictions_c150 <- predict(c150, concentration_2_no0, re.form=NA, type="response")
 
 concentration_150_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c150, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.150_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -240,8 +234,8 @@ concentration_150_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pr
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 2, y = 0.17, label = "***", size = 6, color = "black") + 
-  geom_text(x = 4, y = 0.17, label = "***", size = 6, color = "black")
+  geom_text(x = 2, y = 0.03, label = "***", size = 8, color = "black") + 
+  geom_text(x = 4, y = 0.165, label = "***", size = 8, color = "black")
   
 concentration_150_graph
 
@@ -258,7 +252,7 @@ c371_emmeans <- as.data.frame(c371_emmeans)
 concentration_2_no0$predictions_c371 <- predict(c371, concentration_2_no0, re.form=NA, type="response")
 
 concentration_371_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c371, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -267,8 +261,7 @@ concentration_371_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pr
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 5, y = 0.010, label = "***", size = 6, color = "black") 
-  
+  geom_text(x = 5, y = 0.007, label = "***", size = 8, color = "black") 
 concentration_371_graph
 
 # 14
@@ -284,7 +277,7 @@ c14_emmeans <- as.data.frame(c14_emmeans)
 concentration_2_no0$predictions_c14 <- predict(c14, concentration_2_no0, re.form=NA, type="response")
 
 concentration_14_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c14, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.14_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -293,10 +286,10 @@ concentration_14_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pre
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 2, y = 0.10, label = "***", size = 6, color = "black") + 
-  geom_text(x = 3, y = 0.10, label = "***", size = 6, color = "black") + 
-  geom_text(x = 4, y = 0.10, label = "***", size = 6, color = "black") + 
-  geom_text(x = 5, y = 0.10, label = "***", size = 6, color = "black")
+  geom_text(x = 2, y = 0.06, label = "***", size = 8, color = "black") + 
+  geom_text(x = 3, y = 0.02, label = "***", size = 8, color = "black") + 
+  geom_text(x = 4, y = 0.012, label = "***", size = 8, color = "black") + 
+  geom_text(x = 5, y = 0.02, label = "***", size = 8, color = "black")
 concentration_14_graph
 
 # 69
@@ -312,7 +305,7 @@ c69_emmeans <- as.data.frame(c69_emmeans)
 concentration_2_no0$predictions_c69 <- predict(c69, concentration_2_no0, re.form=NA, type="response")
 
 concentration_69_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c69, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -321,7 +314,8 @@ concentration_69_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pre
   xlab (" ") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.026, label = "***", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.0275, label = "***", size = 8, color = "black") + 
+  ylim(0, 0.035)
 concentration_69_graph
 
 # 18
@@ -337,7 +331,7 @@ c18_emmeans <- as.data.frame(c18_emmeans)
 concentration_2_no0$predictions_c18 <- predict(c18, concentration_2_no0, re.form=NA, type="response")
 
 concentration_18_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c18, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.18_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -347,7 +341,7 @@ concentration_18_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pre
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 3, y = 0.03, label = "**", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.015, label = "**", size = 8, color = "black") 
 concentration_18_graph
 
 # 370
@@ -363,7 +357,7 @@ c370_emmeans <- as.data.frame(c370_emmeans)
 concentration_2_no0$predictions_c370 <- predict(c370, concentration_2_no0, re.form=NA, type="response")
 
 concentration_370_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c370, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -373,7 +367,7 @@ concentration_370_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pr
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 5, y = 0.30, label = "***", size = 6, color = "black") 
+  geom_text(x = 5, y = 0.20, label = "***", size = 8, color = "black") 
 concentration_370_graph
 
 # 46
@@ -389,7 +383,7 @@ c46_emmeans <- as.data.frame(c46_emmeans)
 concentration_2_no0$predictions_c46 <- predict(c46, concentration_2_no0, re.form=NA, type="response")
 
 concentration_46_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c46, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.46_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -399,26 +393,23 @@ concentration_46_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = pre
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 5, y = 0.04, label = "***", size = 6, color = "black") 
+  geom_text(x = 5, y = 0.025, label = "***", size = 8, color = "black") 
+
 concentration_46_graph
 
-allcompounds_2_RF <- ggarrange(concentration_353_graph,
-                               concentration_226_graph,
-                               concentration_150_graph,
-                               concentration_371_graph,
-                               concentration_14_graph,
-                               concentration_69_graph,
-                               concentration_18_graph,
-                               concentration_370_graph,
-                               concentration_46_graph,
-                               ncol = 3,
-                               nrow = 3,
-                               align = "hv")
-allcompounds_2_RF
+allcompounds_2_RF <- concentration_353_graph +
+  concentration_226_graph +
+  concentration_150_graph +
+  concentration_371_graph +
+  concentration_14_graph +
+  concentration_69_graph +
+  concentration_18_graph +
+  concentration_370_graph +
+  concentration_46_graph
+
 ggsave(file="allcompounds_2_RF.jpg", 
        plot=allcompounds_2_RF,
        width=9,height=9,units="in",dpi=300)
-
 
 ### 3% 
 
@@ -435,7 +426,7 @@ c356_emmeans <- as.data.frame(c356_emmeans)
 concentration_3_no0$predictions_c356 <- predict(c356, concentration_3_no0, re.form=NA, type="response")
 
 concentration_356_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c356, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.356_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -444,7 +435,7 @@ concentration_356_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 0.021, label = "***", size = 6, color = "black") 
+  geom_text(x = 4, y = 0.021, label = "***", size = 8, color = "black") 
 concentration_356_graph
 
 #353
@@ -460,7 +451,7 @@ c353_emmeans <- as.data.frame(c353_emmeans)
 concentration_3_no0$predictions_c353 <- predict(c353, concentration_3_no0, re.form=NA, type="response")
 
 concentration_353_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c353, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -469,7 +460,7 @@ concentration_353_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 0.6, label = "***", size = 6, color = "black") 
+  geom_text(x = 4, y = 0.55, label = "***", size = 8, color = "black") 
 concentration_353_graph
 
 #226
@@ -485,7 +476,7 @@ c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_3_no0$predictions_c226 <- predict(c226, concentration_3_no0, re.form=NA, type="response")
 
 concentration_226_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -494,7 +485,7 @@ concentration_226_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 3.4, label = "***", size = 6, color = "black") +
+  geom_text(x = 4, y = 3.4, label = "***", size = 8, color = "black") +
   ylim(0, 3.5)
 concentration_226_graph
 
@@ -511,7 +502,7 @@ c354_emmeans <- as.data.frame(c354_emmeans)
 concentration_3_no0$predictions_c354 <- predict(c354, concentration_3_no0, re.form=NA, type="response")
 
 concentration_354_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c354, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.354_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -520,7 +511,7 @@ concentration_354_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 4, y = 0.04, label = "***", size = 6, color = "black") 
+  geom_text(x = 4, y = 0.0355, label = "***", size = 8, color = "black") 
 concentration_354_graph
 
 # 371
@@ -536,7 +527,7 @@ c371_emmeans <- as.data.frame(c371_emmeans)
 concentration_3_no0$predictions_c371 <- predict(c371, concentration_3_no0, re.form=NA, type="response")
 
 concentration_371_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c371, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -545,7 +536,7 @@ concentration_371_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 5, y = 0.04, label = "***", size = 6, color = "black") 
+  geom_text(x = 5, y = 0.03, label = "***", size = 8, color = "black") 
 concentration_371_graph
 
 # 372
@@ -561,7 +552,7 @@ c372_emmeans <- as.data.frame(c372_emmeans)
 concentration_3_no0$predictions_c372 <- predict(c372, concentration_3_no0, re.form=NA, type="response")
 
 concentration_372_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c372, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.372_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -570,7 +561,7 @@ concentration_372_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 5, y = 0.021, label = "***", size = 6, color = "black") 
+  geom_text(x = 5, y = 0.015, label = "***", size = 8, color = "black") 
 concentration_372_graph
 
 # 334
@@ -586,7 +577,7 @@ c334_emmeans <- as.data.frame(c334_emmeans)
 concentration_3_no0$predictions_c334 <- predict(c334, concentration_3_no0, re.form=NA, type="response")
 
 concentration_334_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c334, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.334_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -595,7 +586,7 @@ concentration_334_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.03, label = "***", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.023, label = "***", size = 8, color = "black") 
 concentration_334_graph
 
 # 335
@@ -611,7 +602,7 @@ c335_emmeans <- as.data.frame(c335_emmeans)
 concentration_3_no0$predictions_c335 <- predict(c335, concentration_3_no0, re.form=NA, type="response")
 
 concentration_335_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c335, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.335_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -620,7 +611,7 @@ concentration_335_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.0025, label = "***", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.0024, label = "***", size = 8, color = "black") 
 concentration_335_graph
 
 # 69
@@ -636,7 +627,7 @@ c69_emmeans <- as.data.frame(c69_emmeans)
 concentration_3_no0$predictions_c69 <- predict(c69, concentration_3_no0, re.form=NA, type="response")
 
 concentration_69_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c69, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -645,7 +636,7 @@ concentration_69_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pre
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.5, label = "***", size = 6, color = "black") +
+  geom_text(x = 3, y = 0.47, label = "***", size = 8, color = "black") +
   ylim(0, 0.55)
 concentration_69_graph
 
@@ -662,7 +653,7 @@ c199_emmeans <- as.data.frame(c199_emmeans)
 concentration_3_no0$predictions_c199 <- predict(c199, concentration_3_no0, re.form=NA, type="response")
 
 concentration_199_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c199, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.199_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -671,8 +662,8 @@ concentration_199_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.47, label = "***", size = 6, color = "black") +
-  geom_text(x = 4, y = 0.06, label = "*", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.38, label = "***", size = 8, color = "black") +
+  geom_text(x = 4, y = 0.05, label = "*", size = 8, color = "black") 
 concentration_199_graph
 
 # 7
@@ -688,7 +679,7 @@ c7_emmeans <- as.data.frame(c7_emmeans)
 concentration_3_no0$predictions_c7 <- predict(c7, concentration_3_no0, re.form=NA, type="response")
 
 concentration_7_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c7, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.7_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -697,8 +688,8 @@ concentration_7_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pred
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 2, y = 1, label = "*", size = 6, color = "black") +
-  geom_text(x = 3, y = 1, label = "**", size = 6, color = "black") 
+  geom_text(x = 2, y = 0.7, label = "*", size = 8, color = "black") +
+  geom_text(x = 3, y = 0.7, label = "**", size = 8, color = "black") 
 concentration_7_graph
 
 # 33
@@ -714,7 +705,7 @@ c33_emmeans <- as.data.frame(c33_emmeans)
 concentration_3_no0$predictions_c33 <- predict(c33, concentration_3_no0, re.form=NA, type="response")
 
 concentration_33_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c33, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.33_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -723,8 +714,8 @@ concentration_33_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pre
   xlab ("") +
   theme(legend.position = "none") +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
-  geom_text(x = 3, y = 0.05, label = "***", size = 6, color = "black") +
-  geom_text(x = 5, y = 0.05, label = "*", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.02, label = "***", size = 8, color = "black") +
+  geom_text(x = 5, y = 0.03, label = "*", size = 8, color = "black") 
 concentration_33_graph
 
 # 31
@@ -740,7 +731,7 @@ c31_emmeans <- as.data.frame(c31_emmeans)
 concentration_3_no0$predictions_c31 <- predict(c31, concentration_3_no0, re.form=NA, type="response")
 
 concentration_31_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c31, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.31_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -750,8 +741,8 @@ concentration_31_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pre
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 3, y = 0.04, label = "***", size = 6, color = "black") +
-  geom_text(x = 5, y = 0.04, label = "***", size = 6, color = "black") 
+  geom_text(x = 3, y = 0.010, label = "***", size = 8, color = "black") +
+  geom_text(x = 5, y = 0.025, label = "***", size = 8, color = "black") 
 concentration_31_graph
 
 
@@ -768,7 +759,7 @@ c94_emmeans <- as.data.frame(c94_emmeans)
 concentration_3_no0$predictions_c94 <- predict(c94, concentration_3_no0, re.form=NA, type="response")
 
 concentration_94_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c94, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.94_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -778,7 +769,7 @@ concentration_94_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pre
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 4, y = 0.35, label = "***", size = 6, color = "black") +
+  geom_text(x = 4, y = 0.32, label = "***", size = 8, color = "black") +
   ylim(0, 0.4)
 concentration_94_graph
 
@@ -795,7 +786,7 @@ c370_emmeans <- as.data.frame(c370_emmeans)
 concentration_3_no0$predictions_c370 <- predict(c370, concentration_3_no0, re.form=NA, type="response")
 
 concentration_370_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c370, color = treatment)) +
-  theme_classic(base_size = 15) +
+  theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
   geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
   stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
@@ -805,33 +796,28 @@ concentration_370_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = pr
   theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic acid", "C3" = "Eugenol", "C4" = "Phytol")) + 
-  geom_text(x = 5, y = 0.6, label = "***", size = 6, color = "black") 
+  geom_text(x = 5, y = 0.35, label = "***", size = 8, color = "black") 
 concentration_370_graph
 
-allcompounds_3_RF <- ggarrange(concentration_356_graph,
-                               concentration_353_graph,
-                               concentration_226_graph,
-                               concentration_354_graph,
-                               concentration_371_graph,
-                               concentration_372_graph,
-                               concentration_334_graph,
-                               concentration_335_graph,
-                               concentration_69_graph,
-                               concentration_199_graph,
-                               concentration_7_graph,
-                               concentration_33_graph,
-                               concentration_31_graph,
-                               concentration_94_graph,
-                               concentration_370_graph,
-                               ncol = 3,
-                               nrow = 5,
-                               align = "hv")
-allcompounds_3_RF
-allcompounds_3_RF + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+allcompounds_3_RF <- (concentration_356_graph+
+                               concentration_353_graph+
+                               concentration_226_graph+
+                               concentration_354_graph+
+                               concentration_371_graph+
+                               concentration_372_graph+
+                               concentration_334_graph+
+                               concentration_335_graph+
+                               concentration_69_graph+
+                               concentration_199_graph+
+                               concentration_7_graph+
+                               concentration_33_graph+
+                               concentration_31_graph+
+                               concentration_94_graph+
+                               concentration_370_graph) + plot_layout(ncol = 3)
 
 ggsave(file="allcompounds_3_RF.jpg", 
        plot=allcompounds_3_RF,
-       width=10,height=12,units="in",dpi=300)
+       width=10,height=13,units="in",dpi=300)
 
 ##################################################
 ### Compound classification using classyfireR ####

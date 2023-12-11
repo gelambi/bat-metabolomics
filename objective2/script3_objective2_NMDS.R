@@ -12,6 +12,7 @@ library(ggplot2)
 library(ggpubr)
 
 ### Get data ### 
+setwd("/Users/marianagelambi/Desktop/bat-metabolomics/objective2")
 data_final <- read.csv("data_final_metaMS_dec2_normalizedinsresponse.csv")
 data_final$concentration <- as.factor(data_final$concentration)
 data_final <- data_final %>%
@@ -63,17 +64,20 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_0.1 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment)) +
-  theme_classic(base_size = 20) + 
+nmdsgraph_concentration_0.1 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
+  theme_test(base_size = 15) + 
   ggtitle("(A) 0.1%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_point(size = 5, alpha = 0.8) +
+  geom_point(size = 3, alpha = 0.8) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   ylab ("NMDS2") +
   xlab ("NMDS1") + 
-  stat_ellipse(level = 0.95, linewidth = 1, linetype = "dashed") +  
-  theme(legend.position = "bottom") + 
-  annotate("text", x = 2, y = 1, size = 6, label = paste("Stress = 0.156\nPERMDISP2, P = 0.621\nPERMANOVA, P = 0.501")) +
-  scale_color_viridis(option = "D", discrete=TRUE, name = "Metabolites", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) 
+  stat_ellipse(level = 0.95, linewidth = 0.5, linetype = "dotted") + 
+  scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
+  annotate("text", x = 0.8, y = 1.3, size = 4, label = paste("Stress = 0.156")) +
+  theme(legend.position = "right") +
+  ylim(-1.5, 1.5)
 nmdsgraph_concentration_0.1
 
 ### 2
@@ -108,18 +112,25 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_2 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment)) +
-  theme_classic(base_size = 20) + 
+nmdsgraph_concentration_2 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
+  theme_test(base_size = 15) + 
   ggtitle("(B) 2%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_point(size = 5, alpha = 0.8) +
-  scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds, 2%") + 
+  geom_point(size = 3, alpha = 0.8) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   ylab ("NMDS2") +
   xlab ("NMDS1") + 
-  stat_ellipse(level = 0.95, linewidth = 1, linetype = "dashed") +   
-  annotate("text", x = 1, y = 1, size = 6, label = paste("Stress = 0.220\nPERMDISP2, P = 0.253\nPERMANOVA, P = 0.069")) +
-  theme(legend.position = "none") 
+  stat_ellipse(level = 0.95, linewidth = 0.5, linetype = "dotted") + 
+  scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
+  annotate("text", x = 0.5, y = 1.3, size = 4, label = paste("Stress = 0.220")) +
+  theme(legend.position = "right") +
+  ylim(-1.5, 1.5) + 
+  xlim(-2, 2)
+  
+
 nmdsgraph_concentration_2
+
 
 ### 3
 concentration_3_no0 <- concentration_3 %>%
@@ -155,27 +166,31 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_3 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment)) +
-  theme_classic(base_size = 20) + 
+nmdsgraph_concentration_3 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
+  theme_test(base_size = 15) + 
   ggtitle("(C) 3%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_point(size = 5, alpha = 0.8) +
+  geom_point(size = 3, alpha = 0.8) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   ylab ("NMDS2") +
   xlab ("NMDS1") + 
-  stat_ellipse(level = 0.95, linewidth = 1) + 
-  scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
-  annotate("text", x = 1.5, y = 1, size = 6, label = paste("Stress = 0.152\nPERMDISP2, P = 0.171\nPERMANOVA, P = 0.003**")) +
-  theme(legend.position = "right")
+  stat_ellipse(level = 0.95, linewidth = 0.5) + 
+  scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
+  annotate("text", x = 0.8, y = 1.3, size = 4, label = paste("Stress = 0.152")) +
+  theme(legend.position = "right") +
+  ylim(-1.5, 1.5)
 
 nmdsgraph_concentration_3
 
 NMDS_graph <- ggarrange(nmdsgraph_concentration_0.1,
                         nmdsgraph_concentration_2,
                         nmdsgraph_concentration_3,
-                        ncol = 1, nrow = 3,
-                        common.legend = TRUE)
-NMDS_graph
+                        ncol = 3, nrow = 1,
+                        common.legend = TRUE,
+                        legend = "bottom")
+
 
 ggsave(file="NMDS_graph.jpg", 
        plot= NMDS_graph,
-       width=9,height=20,units="in",dpi=300)
+       width=8,height=4,units="in",dpi=300)

@@ -1,6 +1,10 @@
 # Untargeted metabolomics reveals fruit secondary metabolites alter bat nutrient absorption
 
-This repository contains scripts, information, and figures related to the statistical analyses conducted for the research paper titled **"Untargeted metabolomics reveals fruit secondary metabolites alter bat nutrient absorption."** Using a mutualistic fruit bat (*Carollia perspicillata*), our research explores how four secondary metabolites (piperine, tannin acid, eugenol, and phytol) commonly found in plant tissues affect the foraging behavior and induce changes in the fecal metabolome. In this study, bats were captured and housed in flight cages. Nightly trials exposed them to varying concentrations of secondary metabolites. Objective 1 involved non-choice trials to measure food consumption, while Objective 2 evaluated the impact of metabolite consumption on the bat fecal metabolome. Fecal samples were collected, stored, and later analyzed to comprehend how secondary metabolites influence bat behavior and metabolism. All the analyses were performed in R v. 4.2.1.
+This repository contains scripts, information, and figures related to the statistical analyses conducted for the research paper titled **"Untargeted metabolomics reveals fruit secondary metabolites alter bat nutrient absorption."**
+
+Using a mutualistic fruit bat (*Carollia perspicillata*), our research explores how four secondary metabolites (piperine, tannin acid, eugenol, and phytol) commonly found in plant tissues affect the foraging behavior and induce changes in the fecal metabolome. In this study, bats were captured and housed in flight cages. Nightly trials exposed them to varying concentrations of secondary metabolites. Objective 1 involved non-choice trials to measure food consumption, while Objective 2 evaluated the impact of metabolite consumption on the bat fecal metabolome. Fecal samples were collected, stored, and later analyzed to comprehend how secondary metabolites influence bat behavior and metabolism.
+
+All the analyses were performed in R v. 4.2.1.
 
 ## Scripts for objective 1. The effects of secondary metabolites on the foraging behavior of captive bats
 
@@ -22,7 +26,7 @@ This repository contains scripts, information, and figures related to the statis
 
 `script4_objective2_RF&GLMMs.R` focuses on exploring the impact of secondary metabolite consumption on the bat fecal metabolome through Random Forest (RF) and Boruta analyses. The script subsets the data based on different concentrations (0.1%, 2%, and 3%). The subsequent application of RF involves training models for each concentration subset to assess variable importance. The Boruta algorithm is employed for feature selection, identifying significant attributes among compounds.
 
-Following the Boruta analysis, the script constructs Generalized Linear Mixed Models (GLMMs) to evaluate the significance of the identified compounds. In each model, the response variable aere the compound suggested in the Boruta analysis, and the predictor variable are the four different metabolites ingested by the bat at a given concentration. BatID was incorporated as a random effect, accounting for potential variations among individual bats.
+Following the Boruta analysis, the script constructs Generalized Linear Mixed Models (GLMMs) to evaluate the significance of the identified compounds. Each GLMM included each excreted metabolite identified in the Boruta analysis as the response variable, the identity of the secondary metabolite (treatment) as the predictor variable, and bat identity and trial date as random effects in the models coded as random intercepts, i.e., (1\|Bat) + (1\|Date), accounting for potential variations among individual bats and daily diets.
 
 Finally, the script uses the classyfireR package to obtain compound classification. The script extracts the InChIKeys from the dataset and creates a vector named InChI_Keys. Subsequently, it employs the purrr::map function to apply the get_classification function to each InChIKey, generating a list named Classification_List. This list holds the classification results for each compound.
 
