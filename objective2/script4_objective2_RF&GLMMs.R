@@ -110,11 +110,11 @@ c226_emmeans
 c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_0.1_no0$predictions_c226 <- predict(c226, concentration_0.1_no0, re.form=NA, type="response")
 
-concentration_226_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
+concentration_226_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c226, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_0.1_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_0.1_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c226_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Eugenol") +
   xlab (" ") +
@@ -136,11 +136,11 @@ effect_size_c6
 c6_emmeans <- as.data.frame(c6_emmeans)
 concentration_0.1_no0$predictions_c6 <- predict(c6, concentration_0.1_no0, re.form=NA, type="response")
 
-concentration_6_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c6, color = treatment)) +
+concentration_6_graph <- ggplot(concentration_0.1_no0, aes(x = treatment, y = predictions_c6, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_0.1_no0, aes(x = treatment, y = Unknown.6_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_0.1_no0, aes(x = treatment, y = Unknown.6_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c6_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("A") +
   xlab (" ") +
@@ -174,11 +174,14 @@ effect_size_c353
 c353_emmeans <- as.data.frame(c353_emmeans)
 concentration_2_no0$predictions_c353 <- predict(c353, concentration_2_no0, re.form=NA, type="response")
 
-concentration_353_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c353, color = treatment)) +
+concentration_353_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c353, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
+  geom_point(data = concentration_2_no0, aes(x = treatment, y = Unknown.353_gamma, color = "black"), size = 3) +
+  geom_point(data = concentration_2_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), size = 2) +
   geom_errorbar(data = c353_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Eugenol") +
   xlab (" ") +
@@ -199,11 +202,14 @@ effect_size_c226
 c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_2_no0$predictions_c226 <- predict(c226, concentration_2_no0, re.form=NA, type="response")
 
-concentration_226_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
+concentration_226_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c226, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point(data = concentration_2_no0, aes(x = treatment, y = Unknown.226_gamma, color = "black"), size = 3) +
+  geom_point(data = concentration_2_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c226_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Eugenol") +
   xlab (" ") +
@@ -224,11 +230,14 @@ effect_size_c150
 c150_emmeans <- as.data.frame(c150_emmeans)
 concentration_2_no0$predictions_c150 <- predict(c150, concentration_2_no0, re.form=NA, type="response")
 
-concentration_150_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c150, color = treatment)) +
+concentration_150_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c150, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.150_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.150_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.150_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c150_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("A") +
   xlab (" ") +
@@ -251,11 +260,14 @@ effect_size_c371
 c371_emmeans <- as.data.frame(c371_emmeans)
 concentration_2_no0$predictions_c371 <- predict(c371, concentration_2_no0, re.form=NA, type="response")
 
-concentration_371_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c371, color = treatment)) +
+concentration_371_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c371, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.371_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c371_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("B") +
   xlab (" ") +
@@ -276,11 +288,14 @@ effect_size_c14
 c14_emmeans <- as.data.frame(c14_emmeans)
 concentration_2_no0$predictions_c14 <- predict(c14, concentration_2_no0, re.form=NA, type="response")
 
-concentration_14_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c14, color = treatment)) +
+concentration_14_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c14, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.14_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.14_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.14_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c14_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("C") +
   xlab (" ") +
@@ -304,11 +319,15 @@ effect_size_c69
 c69_emmeans <- as.data.frame(c69_emmeans)
 concentration_2_no0$predictions_c69 <- predict(c69, concentration_2_no0, re.form=NA, type="response")
 
-concentration_69_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c69, color = treatment)) +
+concentration_69_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c69, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.69_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c69_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("D") +
   xlab (" ") +
@@ -330,11 +349,14 @@ effect_size_c18
 c18_emmeans <- as.data.frame(c18_emmeans)
 concentration_2_no0$predictions_c18 <- predict(c18, concentration_2_no0, re.form=NA, type="response")
 
-concentration_18_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c18, color = treatment)) +
+concentration_18_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c18, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.18_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.18_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.18_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c18_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("E") +
   xlab (" ") +
@@ -356,11 +378,14 @@ effect_size_c370
 c370_emmeans <- as.data.frame(c370_emmeans)
 concentration_2_no0$predictions_c370 <- predict(c370, concentration_2_no0, re.form=NA, type="response")
 
-concentration_370_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c370, color = treatment)) +
+concentration_370_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c370, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.370_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c370_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Phytol") +
   xlab (" ") +
@@ -382,11 +407,14 @@ effect_size_c46
 c46_emmeans <- as.data.frame(c46_emmeans)
 concentration_2_no0$predictions_c46 <- predict(c46, concentration_2_no0, re.form=NA, type="response")
 
-concentration_46_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c46, color = treatment)) +
+concentration_46_graph <- ggplot(concentration_2_no0, aes(x = treatment, y = predictions_c46, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_2_no0, aes(x = treatment, y = Unknown.46_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.46_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_2_no0, aes(x = treatment, y = Unknown.46_gamma, color = treatment), size = 2) +
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c46_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("F") +
   xlab (" ") +
@@ -406,6 +434,7 @@ allcompounds_2_RF <- concentration_353_graph +
   concentration_18_graph +
   concentration_370_graph +
   concentration_46_graph
+allcompounds_2_RF
 
 ggsave(file="allcompounds_2_RF.jpg", 
        plot=allcompounds_2_RF,
@@ -425,11 +454,14 @@ effect_size_c356
 c356_emmeans <- as.data.frame(c356_emmeans)
 concentration_3_no0$predictions_c356 <- predict(c356, concentration_3_no0, re.form=NA, type="response")
 
-concentration_356_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c356, color = treatment)) +
+concentration_356_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c356, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.356_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.356_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.356_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c356_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("A") +
   xlab ("") +
@@ -450,11 +482,14 @@ effect_size_c353
 c353_emmeans <- as.data.frame(c353_emmeans)
 concentration_3_no0$predictions_c353 <- predict(c353, concentration_3_no0, re.form=NA, type="response")
 
-concentration_353_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c353, color = treatment)) +
+concentration_353_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c353, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.353_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.353_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c353_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Eugenol") +
   xlab ("") +
@@ -475,11 +510,14 @@ effect_size_c226
 c226_emmeans <- as.data.frame(c226_emmeans)
 concentration_3_no0$predictions_c226 <- predict(c226, concentration_3_no0, re.form=NA, type="response")
 
-concentration_226_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c226, color = treatment)) +
+concentration_226_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c226, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.226_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.226_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c226_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Eugenol") +
   xlab ("") +
@@ -501,11 +539,14 @@ effect_size_c354
 c354_emmeans <- as.data.frame(c354_emmeans)
 concentration_3_no0$predictions_c354 <- predict(c354, concentration_3_no0, re.form=NA, type="response")
 
-concentration_354_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c354, color = treatment)) +
+concentration_354_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c354, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.354_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.354_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.354_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c354_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("B") +
   xlab ("") +
@@ -526,11 +567,14 @@ effect_size_c371
 c371_emmeans <- as.data.frame(c371_emmeans)
 concentration_3_no0$predictions_c371 <- predict(c371, concentration_3_no0, re.form=NA, type="response")
 
-concentration_371_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c371, color = treatment)) +
+concentration_371_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c371, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.371_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.371_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c371_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("C") +
   xlab ("") +
@@ -551,11 +595,14 @@ effect_size_c372
 c372_emmeans <- as.data.frame(c372_emmeans)
 concentration_3_no0$predictions_c372 <- predict(c372, concentration_3_no0, re.form=NA, type="response")
 
-concentration_372_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c372, color = treatment)) +
+concentration_372_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c372, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.372_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.372_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.372_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c372_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("D") +
   xlab ("") +
@@ -576,11 +623,14 @@ effect_size_c334
 c334_emmeans <- as.data.frame(c334_emmeans)
 concentration_3_no0$predictions_c334 <- predict(c334, concentration_3_no0, re.form=NA, type="response")
 
-concentration_334_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c334, color = treatment)) +
+concentration_334_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c334, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.334_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.334_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.334_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c334_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("E") +
   xlab ("") +
@@ -601,11 +651,14 @@ effect_size_c335
 c335_emmeans <- as.data.frame(c335_emmeans)
 concentration_3_no0$predictions_c335 <- predict(c335, concentration_3_no0, re.form=NA, type="response")
 
-concentration_335_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c335, color = treatment)) +
+concentration_335_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c335, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.335_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.335_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.335_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c335_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("F") +
   xlab ("") +
@@ -626,11 +679,14 @@ effect_size_c69
 c69_emmeans <- as.data.frame(c69_emmeans)
 concentration_3_no0$predictions_c69 <- predict(c69, concentration_3_no0, re.form=NA, type="response")
 
-concentration_69_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c69, color = treatment)) +
+concentration_69_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c69, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.69_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.69_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c69_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("G") +
   xlab ("") +
@@ -652,11 +708,14 @@ effect_size_c199
 c199_emmeans <- as.data.frame(c199_emmeans)
 concentration_3_no0$predictions_c199 <- predict(c199, concentration_3_no0, re.form=NA, type="response")
 
-concentration_199_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c199, color = treatment)) +
+concentration_199_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c199, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.199_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.199_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.199_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c199_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Gallic acid") +
   xlab ("") +
@@ -678,11 +737,14 @@ effect_size_c7
 c7_emmeans <- as.data.frame(c7_emmeans)
 concentration_3_no0$predictions_c7 <- predict(c7, concentration_3_no0, re.form=NA, type="response")
 
-concentration_7_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c7, color = treatment)) +
+concentration_7_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c7, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.7_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.7_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.7_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c7_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("H") +
   xlab ("") +
@@ -704,11 +766,14 @@ effect_size_c33
 c33_emmeans <- as.data.frame(c33_emmeans)
 concentration_3_no0$predictions_c33 <- predict(c33, concentration_3_no0, re.form=NA, type="response")
 
-concentration_33_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c33, color = treatment)) +
+concentration_33_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c33, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.33_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.33_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.33_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c33_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("I") +
   xlab ("") +
@@ -730,11 +795,14 @@ effect_size_c31
 c31_emmeans <- as.data.frame(c31_emmeans)
 concentration_3_no0$predictions_c31 <- predict(c31, concentration_3_no0, re.form=NA, type="response")
 
-concentration_31_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c31, color = treatment)) +
+concentration_31_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c31, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.31_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point(data = concentration_3_no0, aes(x = treatment, y = Unknown.31_gamma, color = "black"), size = 3) +
+  geom_point(data = concentration_3_no0, aes(x = treatment, y = Unknown.31_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c31_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("J") +
   xlab ("") +
@@ -758,11 +826,14 @@ effect_size_c94
 c94_emmeans <- as.data.frame(c94_emmeans)
 concentration_3_no0$predictions_c94 <- predict(c94, concentration_3_no0, re.form=NA, type="response")
 
-concentration_94_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c94, color = treatment)) +
+concentration_94_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c94, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.94_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.94_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.94_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c94_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("K") +
   xlab ("") +
@@ -785,11 +856,14 @@ effect_size_c370
 c370_emmeans <- as.data.frame(c370_emmeans)
 concentration_3_no0$predictions_c370 <- predict(c370, concentration_3_no0, re.form=NA, type="response")
 
-concentration_370_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c370, color = treatment)) +
+concentration_370_graph <- ggplot(concentration_3_no0, aes(x = treatment, y = predictions_c370, color = treatment, shape = treatment)) +
   theme_test(base_size = 15) +
   scale_color_viridis(option = "D", discrete=TRUE, name = "Compounds") + 
-  geom_jitter(data = concentration_3_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), width = 0.2, size = 2, alpha = 0.6) +
-  stat_summary(fun.data = mean_se, color = "black", size = 0.5) + 
+  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
+                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.370_gamma, color = "black"), size = 3) +
+  geom_point (data = concentration_3_no0, aes(x = treatment, y = Unknown.370_gamma, color = treatment), size = 2) +
+  stat_summary(fun.data = mean_se, color = "black", size = 1) + 
   geom_errorbar(data = c370_emmeans, aes(x = treatment, y = response, ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2, color = "black") +
   ylab ("Phytol") +
   xlab ("") +
