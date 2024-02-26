@@ -64,19 +64,15 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_0.1 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
-  theme_test(base_size = 15) + 
-  ggtitle("(A) 0.1%")+ 
+nmdsgraph_concentration_0.1 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, color = treatment)) +
+  theme_test(base_size = 12) + 
+  ggtitle("(a) 0.1%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_point(size = 2, color = "black")  +
-  geom_point(size = 1, alpha = 0.8, aes(color = treatment, shape = treatment))  +
-  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
-  ylab ("NMDS2") +
+  geom_point(size = 2)  +   
   xlab ("NMDS1") + 
   stat_ellipse(level = 0.95, linewidth = 0.5) + 
   scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
-  annotate("text", x = 0.8, y = 1.3, size = 4, label = paste("Stress = 0.156\n P = 0.493")) +
+  annotate("text", x = 0.5, y = 1.3, size = 4, label = paste("Stress = 0.156\nP = 0.493")) +
   theme(legend.position = "right") +
   ylim(-1.5, 1.5)
 nmdsgraph_concentration_0.1
@@ -113,15 +109,11 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_2 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
-  theme_test(base_size = 15) + 
-  ggtitle("(B) 2%")+ 
+nmdsgraph_concentration_2 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment)) + 
+  theme_test(base_size = 12) + 
+  ggtitle("(b) 2%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_point(size = 2, color = "black")  +
-  geom_point(size = 1, alpha = 0.8, aes(color = treatment, shape = treatment))  +
-  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
-  ylab ("NMDS2") +
+  geom_point(size = 2)  +   
   xlab ("NMDS1") + 
   stat_ellipse(level = 0.95, linewidth = 0.5) + 
   scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
@@ -166,22 +158,18 @@ anova(dispersal)
 tukey <- TukeyHSD(dispersal)
 tukey
 
-nmdsgraph_concentration_3 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment, shape = treatment)) +
-  theme_test(base_size = 15) + 
-  ggtitle("(C) 3%")+ 
+nmdsgraph_concentration_3 <- ggplot(data.scores, aes(x = MDS1, y = MDS2, colour = treatment)) +
+  theme_test(base_size = 12) + 
+  ggtitle("(c) 3%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
-  scale_shape_manual(values = c("C" = "cross", "C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
-  ylab ("NMDS2") +
+  geom_point(size = 2)  +   
   xlab ("NMDS1") + 
   stat_ellipse(level = 0.95, linewidth = 0.5) + 
   scale_color_viridis(option = "D", discrete=TRUE, name = " ", labels = c("Control", "Piperine", "Tannic acid", "Eugenol", "Phytol")) +
-  annotate("text", x = 0.8, y = 1.3, size = 4, label = paste("Stress = 0.152\nP = 0.003")) +
-  geom_point(size = 2, color = "black")  +
-  geom_point(size = 1, alpha = 0.8, aes(color = treatment, shape = treatment))  +
+  annotate("text", x = 0.5, y = 1.3, size = 4, label = paste("Stress = 0.152\nP = 0.003")) +
   theme(legend.position = "right") +
   ylim(-1.5, 1.5) + 
-  xlim(-2, 2)
+  xlim(-2, 2.5)
 
 nmdsgraph_concentration_3
 
@@ -191,8 +179,7 @@ NMDS_graph <- ggarrange(nmdsgraph_concentration_0.1,
                         ncol = 3, nrow = 1,
                         common.legend = TRUE,
                         legend = "bottom")
-
-
+NMDS_graph
 ggsave(file="NMDS_graph.jpg", 
        plot= NMDS_graph,
        width=8,height=4,units="in",dpi=300)

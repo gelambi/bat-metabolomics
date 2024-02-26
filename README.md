@@ -2,7 +2,7 @@
 
 This repository contains scripts, information, and figures related to the statistical analyses conducted for the research paper titled **"Untargeted metabolomics reveals fruit secondary metabolites alter bat nutrient absorption."**
 
-Using a mutualistic fruit bat (*Carollia perspicillata*), our research explores how four secondary metabolites (piperine, tannin acid, eugenol, and phytol) commonly found in plant tissues affect the foraging behavior and induce changes in the fecal metabolome. In this study, bats were captured and housed in flight cages. Nightly trials exposed them to varying concentrations of secondary metabolites. Objective 1 involved non-choice trials to measure food consumption, while Objective 2 evaluated the impact of metabolite consumption on the bat fecal metabolome. Fecal samples were collected, stored, and later analyzed to comprehend how secondary metabolites influence bat behavior and metabolism.
+Using a mutualistic fruit bat (*Carollia perspicillata*), our research explores how four secondary metabolites (piperine, tannin acid, eugenol, and phytol) commonly found in plant tissues affect the foraging behavior and induce changes in the fecal metabolome. In this study, bats were captured and housed in flight cages. Nightly trials exposed them to varying concentrations of secondary metabolites. Objective 1 involved non-choice trials to measure food consumption, while Objective 2 evaluated the impact of metabolite consumption on the bat fecal metabolome. Fecal samples were collected, stored, and later analyzed to understand how secondary metabolites influence bat behavior and metabolism.
 
 All the analyses were performed in R v. 4.2.1.
 

@@ -1,0 +1,34 @@
+﻿Best match in NIST ,IUPAC name,treatment,subclass,mean_decrease_accuracy,treatment_effect,direction
+Eugenol,2-methoxy-4-prop-2-enylphenol,0.10%,Methoxyphenols,9.598432196,Eugenol,NA
+"D-fructofuranose, pentakis(trimethylsyl)ether ","(3S,4S,5R)-2,5-bis(hydroxymethyl)oxolane-2,3,4-triol",0.10%,Carbohydrates and carbohydrate conjugates,7.479367996,Tannic acid,NA
+Eugenol,2-methoxy-4-prop-2-enylphenol,2%,Methoxyphenols,12.45803284,Eugenol,increase
+Eugenol,2-methoxy-4-prop-2-enylphenol,2%,Methoxyphenols,19.49310577,Eugenol,increase
+"beta-L-mannofuranose, 6-deoxy-1,2,3,5-tetrakis-O-trimethylsilyl","(2S,3R,4S,5S)-5-[(1S)-1,2-dihydroxyethyl]oxolane-2,3,4-triol",2%,Carbohydrates and carbohydrate conjugates,19.21945252,Tannic acid,increase
+"beta-L-mannofuranose, 6-deoxy-1,2,3,5-tetrakis-O-trimethylsilyl","(2S,3R,4S,5S)-5-[(1S)-1,2-dihydroxyethyl]oxolane-2,3,4-triol",2%,Carbohydrates and carbohydrate conjugates,19.21945252,Eugenol,increase
+Neophytadine,"7,11,15-trimethyl-3-methylidenehexadec-1-ene",2%,Sesquiterpenoids,12.93992994,Phytol,increase
+"1-Methyl-3-phenyl-2,4,5-trioxoimidazolidine","1-methyl-3-phenylimidazolidine-2,4,5-trione",2%,Imidazolidines,7.493440058,Piperine,decrease
+"1-Methyl-3-phenyl-2,4,5-trioxoimidazolidine","1-methyl-3-phenylimidazolidine-2,4,5-trione",2%,Imidazolidines,7.493440058,Tannic acid,decrease
+"1-Methyl-3-phenyl-2,4,5-trioxoimidazolidine","1-methyl-3-phenylimidazolidine-2,4,5-trione",2%,Imidazolidines,7.493440058,Eugenol,decrease
+"1-Methyl-3-phenyl-2,4,5-trioxoimidazolidine","1-methyl-3-phenylimidazolidine-2,4,5-trione",2%,Imidazolidines,7.493440058,Phytol,decrease
+"2,6-dihydroxyacetophenone, 2TMS derivative","1-(2,6-dihydroxyphenyl)ethanone",2%,Carbonyl compounds,22.74826002,Tannic acid,increase
+"Octadecanedioc acid, 2TMS derivate",octadecanedioic acid,2%,Fatty acids and conjugates,10.57195852,Tannic acid,decrease
+Phytol,"(E,7R,11R)-3,7,11,15-tetramethylhexadec-2-en-1-ol",2%,Diterpenoids,21.52490562,Phytol,increase
+"Oleic acid, trimethylsilyl ester",(Z)-octadec-9-enoic acid,2%,Fatty acids and conjugates,7.211123552,Phytol,decrease
+"Disiloxane, hexamethyl-",trimethyl(trimethylsilyloxy)silane,3%,Organosilicon compounds,8.10067357,Eugenol,increase
+Eugenol,2-methoxy-4-prop-2-enylphenol,3%,Methoxyphenols,7.846199193,Eugenol,increase
+Eugenol,2-methoxy-4-prop-2-enylphenol,3%,Methoxyphenols,8.305959698,Eugenol,increase
+"Pentane, 1-(1-ethoxyethoxy)-",1-(1-ethoxyethoxy)pentane,3%,Ethers,14.64928318,Eugenol,increase
+Neophytadine,"7,11,15-trimethyl-3-methylidenehexadec-1-ene",3%,Sesquiterpenoids,16.01361567,Phytol,increase
+"Cyclohexanol, 4-ethenyl-4-methyl-3-(1-methylethenyl)-, (1à,3à,4á)-",4-ethenyl-4-methyl-1-propan-2-yl-3-prop-1-en-2-ylcyclohexene,3%,Sesquiterpenoids,8.998596154,Phytol,increase
+"Glutaric acid, 2-fluorophenyl tridecyl ester",5-O-(2-fluorophenyl) 1-O-tridecyl pentanedioate,3%,Phenol esters,14.64928318,Tannic acid,increase
+Thifensulfuron-Me,"methyl 3-[(4-methoxy-6-methyl-1,3,5-triazin-2-yl)carbamoylsulfamoyl]thiophene-2-carboxylate",3%,Thiophene carboxylic acids and derivatives,8.268220025,Tannic acid,increase
+"2,6-dihydroxyacetophenone, 2TMS derivative","1-(2,6-dihydroxyphenyl)ethanone",3%,Fatty acids and conjugates,17.90430335,Tannic acid,increase
+"Gallic acid, 4TMS derivate","3,4,5-trihydroxybenzoic acid",3%,Benzoic acids and derivatives,10.30127792,Tannic acid,increase
+Palmitic acid,hexadecanoic acid,3%,Fatty acids and conjugates,5.537784069,Piperine,increase
+Palmitic acid,hexadecanoic acid,3%,Fatty acids and conjugates,5.537784069,Tannic acid,increase
+"5,10-Pentadecadien-1-ol, (Z,Z)-","(5Z,10Z)-pentadeca-5,10-dien-1-ol",3%,Fatty acids and conjugates,8.745106666,Tannic acid,decrease
+"5,10-Pentadecadien-1-ol, (Z,Z)-","(5Z,10Z)-pentadeca-5,10-dien-1-ol",3%,Fatty acids and conjugates,8.745106666,Phytol,decrease
+"Dihydrouracil, 2TMS detivate","1,3-diazinane-2,4-dione",3%,Pyrimidines and pyrimidine derivatives,13.32996675,Phytol,decrease
+"Dihydrouracil, 2TMS detivate","1,3-diazinane-2,4-dione",3%,Pyrimidines and pyrimidine derivatives,13.32996675,Tannic acid,decrease
+"hexadecane-1,2-diol","hexadecane-1,2-diol",3%,Fatty alcohols ,6.595153734,Eugenol,increase
+Phytol,"(E,7R,11R)-3,7,11,15-tetramethylhexadec-2-en-1-ol",3%,Diterpenoids,15.95062806,Phytol,increase

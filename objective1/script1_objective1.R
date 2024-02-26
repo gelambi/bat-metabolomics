@@ -114,20 +114,17 @@ write.csv(pairwise_comp_0.1 ,
 ### Graph 0.1% ~ compounds
 graph_0.1 <- ggplot(c01_data, aes(x = compound, y = ratio)) +
   theme_test(base_size = 12) + 
-  ggtitle("(A) 0.1%")+ 
+  ggtitle("(a) 0.1%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
   theme(legend.position = "null") + 
   geom_violin(fill = "light gray", color = "white", alpha = 0.6) + 
-  geom_point(size = 4.5, aes(color = "black", shape = compound))  +
-  geom_point(size = 3, alpha = 0.8, aes(color = compound, shape = compound))  +
+  geom_point(size = 4, aes(color = compound))  +
   annotate("segment", x = -Inf, xend = Inf, y = 1, yend = 1, color = "black", linetype = "dashed") + 
   xlab (" ") + 
   ylab ("Ratio of consumption") + 
   scale_y_continuous(breaks = c(0, 1, 2),
                      limits = c(0, 2)) +
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic\nacid", "C3" = "Eugenol", "C4" = "Phytol")) +
-  scale_shape_manual(values = c("C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   scale_color_manual(values = c("C1" = "#3B528BFF", "C2" = "#21908CFF", "C3" = "#5DC863FF", "C4" = "#FDE725FF"),
                      name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   #piperine
@@ -153,7 +150,6 @@ graph_0.1 <- ggplot(c01_data, aes(x = compound, y = ratio)) +
     
 
 graph_0.1
-
 
 ############
 ### 2% ###
@@ -206,20 +202,17 @@ write.csv(pairwise_comp_2 ,
 ### Graph 2% ~ compounds
 graph_2 <- ggplot(c2_data, aes(x = compound, y = ratio)) +
   theme_test(base_size = 12) + 
-  ggtitle("(B) 2%")+ 
+  ggtitle("(b) 2%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
   theme(legend.position = "null") + 
   geom_violin(fill = "light gray", color = "white", alpha = 0.6) + 
-  geom_point(size = 4.5, aes(color = "black", shape = compound))  +
-  geom_point(size = 3, alpha = 0.8, aes(color = compound, shape = compound))  +
+  geom_point(size = 4, aes(color = compound))  +
   annotate("segment", x = -Inf, xend = Inf, y = 1, yend = 1, color = "black", linetype = "dashed") + 
   xlab (" ") + 
   ylab (" ") + 
   scale_y_continuous(breaks = c(0, 1, 2),
                      limits = c(0, 2)) +
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic\nacid", "C3" = "Eugenol", "C4" = "Phytol")) +
-  scale_shape_manual(values = c("C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   scale_color_manual(values = c("C1" = "#3B528BFF", "C2" = "#21908CFF", "C3" = "#5DC863FF", "C4" = "#FDE725FF"),
                      name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   #piperine
@@ -299,20 +292,17 @@ write.csv(pairwise_comp_3 ,
 ### Graph 3% ~ compounds
 graph_3 <- ggplot(c3_data, aes(x = compound, y = ratio)) +
   theme_test(base_size = 12) + 
-  ggtitle("(C) 3%")+ 
+  ggtitle("(c) 3%")+ 
   theme(plot.title = element_text(hjust = 0.5)) + 
   theme(legend.position = "null") + 
   geom_violin(fill = "light gray", color = "white", alpha = 0.6) + 
-  geom_point(size = 4.5, aes(color = "black", shape = compound))  +
-  geom_point(size = 3, alpha = 0.8, aes(color = compound, shape = compound))  +
+  geom_point(size = 4, aes(color = compound))  +
   annotate("segment", x = -Inf, xend = Inf, y = 1, yend = 1, color = "black", linetype = "dashed") + 
   xlab (" ") + 
   ylab (" ") + 
   scale_y_continuous(breaks = c(0, 1, 2),
                      limits = c(0, 2)) +
   scale_x_discrete(labels=c("C" = "Control", "C1" = "Piperine", "C2" = "Tannic\nacid", "C3" = "Eugenol", "C4" = "Phytol")) +
-  scale_shape_manual(values = c("C1" = "circle", "C2" = "square", "C3" = "triangle", "C4" = "diamond"),
-                     name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   scale_color_manual(values = c("C1" = "#3B528BFF", "C2" = "#21908CFF", "C3" = "#5DC863FF", "C4" = "#FDE725FF"),
                      name = " ", labels = c("Piperine", "Tannic acid", "Eugenol", "Phytol")) + 
   #piperine
