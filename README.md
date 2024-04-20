@@ -1,3 +1,5 @@
+[![](https://zenodo.org/badge/DOI/10.5281/zenodo.11002933.svg)](https://doi.org/10.5281/zenodo.11002933)
+
 # Data from: "Untargeted Metabolomics Reveals Fruit Secondary Metabolites Alter Bat Nutrient Absorption"
 
 Data from "Untargeted Metabolomics Reveals Fruit Secondary Metabolites Alter Bat Nutrient Absorption" by Gelambi, M. & Whitehead, S. R. Published in the Journal of Chemical Ecology, 2024.
