@@ -827,7 +827,7 @@ ggsave(file="allcompounds_3_RF.jpg",
 
 ### Subset data per compound identity 
 
-class_compounds <- read.csv("RF_classification_compoundsID.csv")
+class_compounds <- read.csv("RF_classification_concentration.csv")
 head(class_compounds)
 InChI_Keys <- class_compounds$InChIKey # a vector with the InChIKey
 Classification_List <- purrr::map(InChI_Keys, get_classification)
@@ -841,35 +841,42 @@ setwd("/Users/marianagelambi/Desktop/bat-metabolomics/objective2")
 summary_data <- read.csv("R_summaryplot.csv")
 head(summary_data)
 
-summary_data_2 <- summary_data %>%
-  filter(!treatment %in% c("0.10%"))
+summary_data2 <- summary_data %>%
+  filter(treatment %in% c("2%"))
 
-summary_plot <- ggplot(summary_data_2, aes(x = subclass, y = treatment_effect, size = mean_decrease_accuracy, fill = direction)) +
-  theme_test(base_size = 15) +
-  theme(axis.text.x = element_text(angle = 65, hjust = 1, size = 10),
-        legend.title = element_text(size = 12),  # Reduce legend title size to 10
-        legend.text = element_text(size = 12),
-        legend.spacing.y = unit(0, "cm")) + 
-  theme(strip.background = element_rect(colour = "NA", fill = "NA")) +
-  geom_point(shape = 21, alpha = 0.7, position = position_jitter(width = 0, height = 0.3)) +
-  scale_fill_manual(values = c("increase" = "#C2DA37FF", "decrease" = "orchid4"), 
-                    labels = c("increase" = "Increase", "decrease" = "Decrease"), 
-                    guide = guide_legend(title = "Treatment direction", nrow = 1)) +  # Color legend in one line
-  labs(x = "Tentative subclasses", y = "Treatment", size = "Mean Decrease Accuracy", fill = "Direction") +
-  theme(axis.text.x = element_text(angle = 65, hjust = 1, size = 12)) + 
-  theme(axis.ticks.y = element_blank()) +
-  facet_wrap(~treatment) + 
-  scale_size(range = c(2, 12)) + 
-  theme(legend.position = "top",
-        legend.box = "vertical") +  # Display legends in vertical layout
-  guides(size = guide_legend(title = "Mean Decrease Accuracy")) +
-  geom_hline(data = summary_data_2, aes(yintercept = 1.5), color = "grey",size = 0.5) + 
-  geom_hline(data = summary_data_2, aes(yintercept = 2.5), color = "grey",size = 0.5) +
-  geom_hline(data = summary_data_2, aes(yintercept = 3.5), color = "grey",size = 0.5)
-  
+summary_plot_2 <- ggplot(summary_data2, aes(x = mean_decrease_accuracy, y = reorder(Best.match.in.NIST, mean_decrease_accuracy), color = subclass)) +
+  theme_test(base_size = 9) +
+  geom_point(size = 2) +
+  labs(title = "2% treatment",
+       x = " ",
+       y = "Tentative name of excreted metabolites") + 
+  geom_hline(yintercept = seq_along(unique(summary_data3$Best.match.in.NIST)), color = "gray", linetype = "dotted") +
+  geom_point(size = 2) +
+  guides(color = guide_legend(title = "Tentative subclasses")) + 
+  scale_x_continuous(breaks = c(10, 15, 20))
+summary_plot_2
 
+summary_data3 <- summary_data %>%
+  filter(treatment %in% c("3%"))
+
+summary_plot_3 <- ggplot(summary_data3, aes(x = mean_decrease_accuracy, y = reorder(Best.match.in.NIST, mean_decrease_accuracy), color = subclass)) +
+  theme_test(base_size = 9) +
+  geom_point(size = 2) +
+  labs(title = "3% treatment",
+       x = "Mean Decrease Accuracy",
+       y = "Tentative name of excreted metabolites") + 
+  geom_hline(yintercept = seq_along(unique(summary_data3$Best.match.in.NIST)), color = "gray", linetype = "dotted") +
+  geom_point(size = 2) +
+  guides(color = guide_legend(title = "Tentative subclasses")) + 
+  scale_x_continuous(breaks = c(10, 15, 20, 25))
+summary_plot_3
+
+summary_plot <- ggarrange(summary_plot_2,
+                          summary_plot_3,
+                          ncol = 1,
+                          nrow = 2,
+                          align = "hv")
 summary_plot
-
 ggsave(file="summary_plot.jpg", 
        plot= summary_plot,
-       width=8,height=8,units="in",dpi=300)
+       width=8,height=6,units="in",dpi=300)
